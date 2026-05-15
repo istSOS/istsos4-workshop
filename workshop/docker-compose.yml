@@ -1,0 +1,43 @@
+services:
+  jupyter:
+    image: istsos/istsos4-workshop
+    container_name: istsos4-workshop-jupyter
+    build:
+      context: jupyter
+    ports:
+      - "8888:8888"
+    volumes:
+      - ./jupyter/content:/home/jovyan/content
+    networks:
+      - istsos4-workshop-net
+
+  istsos4:
+    image: istsos/istsos4:latest
+    container_name: istsos4-workshop-api
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=postgresql://postgres:postgres@db:5432/istsos4
+    depends_on:
+      - db
+    networks:
+      - istsos4-workshop-net
+
+  db:
+    image: postgis/postgis:15-3.3
+    container_name: istsos4-workshop-db
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=istsos4
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - istsos4-workshop-net
+
+volumes:
+  pgdata:
+
+networks:
+  istsos4-workshop-net:
+    driver: bridge
