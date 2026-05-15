@@ -1,0 +1,15 @@
+# build pages
+web/site
+.ipynb_checkpoints
+*.iml
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+build/
+.env
+
+# OS
+.DS_Store
