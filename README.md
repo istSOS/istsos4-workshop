@@ -57,6 +57,16 @@ cd workshop
 ./istsos4-workshop-ctl.sh stop
 ```
 
+### Znesical serve
+```bash
+cd workshop
+# start znesical server
+./znesical-ctl.sh start
+# display URL and open in default web browser
+./znesical-ctl.sh url
+# stop znesical server
+./znesical-ctl.sh stop
+```
 ## License
 
 This workshop material is released under the [Creative Commons Attribution 4.0 International (CC BY 4.0)](https://creativecommons.org/licenses/by/4.0) license.

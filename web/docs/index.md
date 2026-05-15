@@ -1,3 +1,9 @@
+---
+title: Workshop Intro
+description: Workshop material for istSOS4 SensorThingsAPI implementation
+icon: lucide/box
+---
+
 # istSOS4 SensorThingsAPI Workshop
 
 ## Introduction

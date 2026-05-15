@@ -1,9 +1,3 @@
----
-title: Docker Installation
-description: Instructions for installing Docker and Docker Compose
-icon: lucide/container
----
-
 # Docker Installation
 
 The workshop requires [Docker](https://docker.com) and

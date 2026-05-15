@@ -1,7 +1,14 @@
 #!/bin/bash
 # Control script for the istSOS4 workshop
 
-WORKSHOP_DIR="$(cd "$(dirname "$0")" && pwd)"
+SCRIPT_PATH="${BASH_SOURCE[0]}"
+WORKSHOP_DIR="$(cd "$(dirname "$SCRIPT_PATH")" && pwd)"
+
+# This script is intended to be executed, not sourced.
+if [[ "${BASH_SOURCE[0]}" != "$0" ]]; then
+    echo "ERROR: Do not source this script. Run it as: ./istsos4-workshop-ctl.sh <command>"
+    return 1 2>/dev/null || exit 1
+fi
 
 usage() {
     echo "Usage: $0 {start|stop|url|update|clean}"
@@ -28,8 +35,12 @@ fi
 case "$1" in
     start)
         echo "Starting istSOS4 workshop..."
-        cd "$WORKSHOP_DIR" && $DOCKER_COMPOSE up -d
-        echo "Workshop started. Run '$0 url' to get the Jupyter URL."
+        if cd "$WORKSHOP_DIR" && $DOCKER_COMPOSE up -d; then
+            echo "Workshop started. Run '$0 url' to get the Jupyter URL."
+        else
+            echo "ERROR: Failed to start workshop services."
+            exit 1
+        fi
         ;;
     stop)
         echo "Stopping istSOS4 workshop..."
