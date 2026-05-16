@@ -6,9 +6,6 @@ icon: lucide/container
 
 # Docker Installation
 
-The workshop requires [Docker](https://docker.com) and
-[Docker Compose](https://docs.docker.com/compose/) to be installed on your system.
-
 ## Installing Docker
 
 ### Linux

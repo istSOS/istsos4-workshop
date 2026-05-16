@@ -1,0 +1,9 @@
+.md-typeset .admonition.technology,
+.md-typeset details.technology {
+  border-color: #448aff;
+}
+
+.md-typeset .technology > .admonition-title,
+.md-typeset .technology > summary {
+  background-color: rgba(68,138,255,0.1);
+}

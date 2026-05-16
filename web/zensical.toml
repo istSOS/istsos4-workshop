@@ -2,20 +2,25 @@
 site_name = "istSOS4 SensorThingsAPI Workshop"
 site_description = "A hands-on workshop for learning IoT sensor data management with istSOS4 and the OGC SensorThings API."
 site_author = "the istSOS4 Workshop Team"
-copyright = "Copyright (c) 2024 the istSOS4 Workshop Team<br/>This website is released under the <a href=\"https://creativecommons.org/licenses/by/4.0\">Creative Commons Attribution 4.0 International (CC BY 4.0) license</a>"
 site_url = "https://istsos.github.io/istsos4-workshop"
 repo_url = "https://github.com/istSOS/istsos4-workshop"
 docs_dir = "docs"
 edit_uri = "edit/main/web/docs"
-
+copyright = """
+    Copyright (c) 2024 the istSOS4 Workshop Team - <a href="#__consent">Change cookie settings</a><br/>
+    This website is released under the <a href=\"https://creativecommons.org/licenses/by/4.0\">Creative Commons Attribution 4.0 International (CC BY 4.0) license</a>"
+"""
 extra_javascript = [
     "javascripts/mathjax.js",
     "https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"
 ]
 
+extra_css = ["stylesheets/extra.css"]
+
 nav = [
     {"Getting started" = [
-        "index.md",
+        "intro.md",
+        "installation.md",
         "docker.md",
         "configuration.md"
     ]},
@@ -26,9 +31,16 @@ nav = [
 ]
 
 [project.theme]
+logo = "images/istsos_bars.png"
 features = [
     "navigation.tabs",
     "navigation.tabs.sticky"
 ]
 
+[project.markdown_extensions.md_in_html]
+[project.markdown_extensions.admonition]
+[project.markdown_extensions.pymdownx.details]
+[project.markdown_extensions.pymdownx.superfences]
 
+[project.theme.icon.admonition]
+technology = "lucide/cpu"
