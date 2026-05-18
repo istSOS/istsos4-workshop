@@ -19,10 +19,15 @@ extra_css = ["stylesheets/extra.css"]
 
 nav = [
     {"Getting started" = [
-        "intro.md",
-        "installation.md",
-        "docker.md",
-        "configuration.md"
+        "getting_started/intro.md",
+        "getting_started/installation.md",
+        "getting_started/docker.md",
+        "getting_started/configuration.md",
+        "getting_started/authorization.md"
+    ]},
+    {"Sensing Data" = [
+        "observing/sensing.md",
+        "observing/interoperability.md"
     ]},
     {"About" = [
         {"Team (c)" = "about/team.md"},
