@@ -24,7 +24,7 @@ It is built with modern Python web technologies (FastAPI, SQLAlchemy, PostgreSQL
 istSOS4 is released under the [MIT License](https://opensource.org/licenses/MIT), which allows for free use, modification, and distribution of the software. Source code is available on [GitHub](https://github.com/istSOS/istSOS4/).
 
 This workshop material is released under the
-[Creative Commons Attribution 4.0 International (CC BY 4.0)](https://creativecommons.org/licenses/by/4.0).
+[Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)](https://creativecommons.org/licenses/by-sa/4.0).
 
 ## Support
 
