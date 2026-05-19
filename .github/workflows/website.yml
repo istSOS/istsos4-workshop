@@ -10,8 +10,8 @@ jobs:
     name: Build and Deploy Website
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
         with:
           python-version: '3.x'
       - name: Install requirements 📦
@@ -22,14 +22,17 @@ jobs:
         run: |
           cd web && zensical build --clean --strict
           mv site /tmp/
-      - name: checkout gh-pages branch
-        uses: actions/checkout@v4
-        with:
-          ref: gh-pages
       - name: Deploy to GitHub Pages 📦
         run: |
           git config --global user.email "actions@github.com"
           git config --global user.name "GitHub Actions"
+          if git ls-remote --exit-code --heads origin gh-pages; then
+            git fetch origin gh-pages
+            git checkout gh-pages
+          else
+            git checkout --orphan gh-pages
+            git rm -rf . || true
+          fi
           ls | grep -v ".nojekyll" | xargs -r rm -fr
           mv -f /tmp/site/* .
           git add .
