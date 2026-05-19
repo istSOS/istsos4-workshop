@@ -1,0 +1,39 @@
+{
+  "name": "SUPSI Demo Hydro-Meteo Station",
+  "description": "Synthetic workshop station for istSOS4 / OGC SensorThings API exercises.",
+  "encodingType": "application/vnd.geo+json",
+  "location": {
+    "type": "Point",
+    "coordinates": [
+      8.949,
+      45.8702
+    ]
+  },
+  "properties": {
+    "owner": "SUPSI DACD",
+    "site": "Mendrisio Campus",
+    "elevation_m": 354,
+    "country": "CH",
+    "canton": "TI"
+  },
+  "sensors": [
+    {
+      "name": "Bosch BME280 demo",
+      "observedProperty": "Air temperature",
+      "unit": "degC",
+      "symbol": "Cel"
+    },
+    {
+      "name": "Tipping bucket rain gauge demo",
+      "observedProperty": "Precipitation",
+      "unit": "mm",
+      "symbol": "mm"
+    },
+    {
+      "name": "MEMS accelerometer demo",
+      "observedProperty": "3-axis acceleration",
+      "unit": "m/s2",
+      "symbol": "m/s2"
+    }
+  ]
+}

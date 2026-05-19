@@ -34,17 +34,6 @@ The **OGC SensorThings API** is an open standard developed by the
 way to connect IoT sensing devices, data, and applications over the web. It follows a RESTful
 approach and uses JSON/GeoJSON for data encoding.
 
-Key concepts in SensorThings API:
-
-| Entity | Description |
-|--------|-------------|
-| **Thing** | A physical or virtual object in the real world (e.g., a weather station) |
-| **Location** | The geographic location of a Thing |
-| **Sensor** | An instrument that observes a property (e.g., a thermometer) |
-| **ObservedProperty** | The phenomenon being measured (e.g., air temperature) |
-| **Datastream** | A collection of observations from a Sensor on a Thing for a specific ObservedProperty |
-| **Observation** | A single measurement value at a given time |
-
 ### istSOS4
 
 [**istSOS4**](https://istsos.org) is an open-source implementation of the OGC SensorThings API developed at SUPSI (University of Applied Sciences and Arts of Southern Switzerland). It is built with modern Python web technologies (FastAPI, SQLAlchemy, PostgreSQL/PostGIS).

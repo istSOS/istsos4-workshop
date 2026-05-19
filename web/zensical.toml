@@ -25,9 +25,10 @@ nav = [
         "getting_started/configuration.md",
         "getting_started/authorization.md"
     ]},
-    {"Sensing Data" = [
-        "observing/sensing.md",
-        "observing/interoperability.md"
+    {"Standards" = [
+        "standards/sensing.md",
+        "standards/interoperability.md",
+        "standards/sta.md"
     ]},
     {"About" = [
         {"Team (c)" = "about/team.md"},
