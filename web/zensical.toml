@@ -8,7 +8,7 @@ docs_dir = "docs"
 edit_uri = "edit/main/web/docs"
 copyright = """
     Copyright (c) 2024 the istSOS4 Workshop Team - <a href="#__consent">Change cookie settings</a><br/>
-    This website is released under the <a href=\"https://creativecommons.org/licenses/by/4.0\">Creative Commons Attribution 4.0 International (CC BY 4.0) license</a>"
+    This website is released under the <a href=\"https://creativecommons.org/licenses/by-sa/4.0\">Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0) license</a>"
 """
 extra_javascript = [
     "javascripts/mathjax.js",

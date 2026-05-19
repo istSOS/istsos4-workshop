@@ -46,7 +46,7 @@ The workshop uses <a href="https://jupyter.org" target="_blank" rel="noopener no
 ## License
 
 This workshop material is released under the
-[Creative Commons Attribution 4.0 International (CC BY 4.0)](https://creativecommons.org/licenses/by/4.0)
+[Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)](https://creativecommons.org/licenses/by-sa/4.0)
 license.
 
 ## Support
