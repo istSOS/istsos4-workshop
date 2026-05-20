@@ -34,7 +34,7 @@ jobs:
         run: |
           cd web && zensical build --clean --strict
       - name: Upload Pages artifact 📦
-        uses: actions/upload-pages-artifact@v6
+        uses: actions/upload-pages-artifact@v3
         with:
           path: web/site
 
