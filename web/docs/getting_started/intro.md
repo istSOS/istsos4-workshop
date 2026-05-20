@@ -36,9 +36,24 @@ approach and uses JSON/GeoJSON for data encoding.
 
 ### istSOS4
 
-[**istSOS4**](https://istsos.org) is an open-source implementation of the OGC SensorThings API developed at SUPSI (University of Applied Sciences and Arts of Southern Switzerland). It is built with modern Python web technologies (FastAPI, SQLAlchemy, PostgreSQL/PostGIS).
+[**istSOS4**](https://istsos.org) is an open-source implementation of the OGC SensorThings API developed at SUPSI (University of Applied Sciences and Arts of Southern Switzerland) built with modern Python web technologies (FastAPI, SQLAlchemy, PostgreSQL/PostGIS).
 
 ??? note "istSOS4 Architecture"
+
+    It is built in Python using solid Web technologies:
+    
+    - [FastAPI](https://fastapi.tiangolo.com/) — high-performance web framework
+    - [SQLAlchemy](https://www.sqlalchemy.org/) — database ORM
+    - [PostgreSQL](https://www.postgresql.org/) + [PostGIS](https://postgis.net/) — spatial database
+    - [redis](https://redis.io/) — in-memory data store for caching and real-time data handling
+
+    **Key features**:
+
+    - Full compliance with OGC SensorThings API Part 1: Sensing
+    - Support for historical and real-time sensor data
+    - Geospatial capabilities through PostGIS integration
+    - RESTful JSON/GeoJSON API for IoT data management
+    - Scalable architecture suitable for production deployments
    
     ![istSOS4 Architecture](../images/istsos_architecture.png)
 
