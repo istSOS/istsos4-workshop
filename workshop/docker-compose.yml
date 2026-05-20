@@ -1,6 +1,6 @@
 services:
   jupyter:
-    # image: istsos/istsos4-workshop
+    image: istsos/istsos4-workshop
     container_name: istsos4-workshop-jupyter
     build:
       context: jupyter
