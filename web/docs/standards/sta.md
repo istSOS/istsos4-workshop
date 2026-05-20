@@ -27,7 +27,7 @@ Understanding these key concepts and entitiesis essential for working with the S
 | *Datastream* | A collection of observations from a Sensor on a Thing for a specific ObservedProperty |
 | *Observation* | A single measurement value at a given time |
 
-## STA query interface: OData
+## OData
 
 The SensorThings API uses the [OData (Open Data Protocol)](https://www.odata.org/) query language to allow clients to filter, sort, and paginate data when making requests to the API. OData provides a standardized way to query and manipulate data over HTTP, making it easier for developers to work with the SensorThings API and integrate it into their applications.
 

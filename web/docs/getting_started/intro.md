@@ -38,6 +38,10 @@ approach and uses JSON/GeoJSON for data encoding.
 
 [**istSOS4**](https://istsos.org) is an open-source implementation of the OGC SensorThings API developed at SUPSI (University of Applied Sciences and Arts of Southern Switzerland). It is built with modern Python web technologies (FastAPI, SQLAlchemy, PostgreSQL/PostGIS).
 
+??? note "istSOS4 Architecture"
+   
+    ![istSOS4 Architecture](../images/istsos_architecture.png)
+
 **Repository**: https://github.com/istSOS/istSOS4
 
 ### Jupyter Notebooks

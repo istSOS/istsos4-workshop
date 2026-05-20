@@ -30,3 +30,18 @@ This workshop material is released under the
 
 All bugs, enhancements and issues of this workshopare managed on
 [GitHub](https://github.com/istSOS/istsos4-workshop/issues).
+
+
+# WORKSHOP
+This workshop provides an introduction to the OGC SensorThings API and its implementation in istSOS4, an open-source platform for managing and sharing IoT sensor data in line with the Open Science principles. The workshop is designed to guide participants through the basics of IoT, the SensorThings API, and how to use istSOS4 to manage sensor data effectively. Exercises are provided in Jupyter Notebooks to allow for an interactive learning experience.
+
+1. installazione di Docker e Docker Compose (solo foss4g)
+2. introduzione al workshop e alle tecnologie utilizzate
+3. introduzione al SensorThings API e alla sua implementazione in istSOS4
+4. esercizi con OpenAPI (login, + filtri su query)
+5. creazione sensori con interfaccia grafica
+6. inserimento osservazioni da file
+7. connessione con sensori per inserimento dati
+8. costruire dashboard con grafana
+9. recupero ed analisi dati (quality flag + AI)
+10. settano allerta su telegram (bot? chat?)

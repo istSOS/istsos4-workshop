@@ -14,16 +14,31 @@ permissions:
 concurrency:
   group: pages
   cancel-in-progress: true
+      - '.github/workflows/website.yml'
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
 
 jobs:
   build:
+    name: Build Website
     name: Build Website
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
       - uses: actions/setup-python@v6
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
         with:
           python-version: '3.x'
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
       - name: Install requirements 📦
@@ -34,8 +49,18 @@ jobs:
         run: |
           cd web && zensical build --clean --strict
       - name: Upload Pages artifact 📦
-        uses: actions/upload-pages-artifact@v6
+        uses: actions/upload-pages-artifact@v3
         with:
+          path: web/site
+
+  deploy:
+    name: Deploy Website
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
           path: web/site
 
   deploy:
