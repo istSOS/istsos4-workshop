@@ -59,13 +59,10 @@ cd workshop
 
 ### Znesical serve
 ```bash
-cd workshop
+cd web
 # start znesical server
-./znesical-ctl.sh start
-# display URL and open in default web browser
-./znesical-ctl.sh url
-# stop znesical server
-./znesical-ctl.sh stop
+workon zensical
+zensical serve
 ```
 ## License
 
