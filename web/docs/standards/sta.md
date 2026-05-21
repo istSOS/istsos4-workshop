@@ -35,8 +35,28 @@ OData (Open Data Protocol) is a standardized protocol for building and consuming
 
 OData offers:
 
-- **Standardized CRUDQ Operations**: It maps standard REST verbs directly to database operations: POST (Create), GET (Read), PUT/PATCH (Update), and DELETE (Delete).
+- **Standardized Operations**: It maps standard REST verbs directly to database operations: POST (Create), GET (Read), PUT/PATCH (Update), and DELETE (Delete).
 - **Entity Data Model (EDM)**: OData exposes data as a structured graph of Entities (e.g., Customers), their Properties (e.g., Name, Address), and Relationships (e.g., Orders placed by a customer).
 - **Self-Descriptive Metadata**: Every OData service exposes a $metadata document. This machine-readable schema defines the exact data types, relationships, and constraints, allowing client applications to build themselves dynamically without prior knowledge of the backend.
 - **Rich URI Query Conventions**: Clients can filter, sort, and shape the data they need directly in the URL using reserved words prefixed with $. This prevents over-fetching and reduces server load.
 
+> So, in summary you can use entity in the URL and HTTP Methods to perform CRUDQ (Create, Read, Update, Delete, Query) operations on the SensorThings API elements.
+
+![OData Query Example](../images/odata_crud.png)
+
+Additionally, you can use OData query parameters to filter, sort, and paginate the data returned by the API. This allows for a flexible and powerful way to interact with the SensorThings API and retrieve the data you need in a way that is efficient and easy to use.
+
+- Sort results by a property **$orderby**: `GET /Things?$orderby=name`
+- Filter results by a property **$filter**: `GET /Things?$filter=properties/location eq 'office'`
+- Paginate results with **$top**, **$skip** and **$count**: `GET /Things?$top=10&$skip=20&$count=true`
+- Select specific properties with **$select**: `GET /Things?$select=name,properties/location`
+- Expand related entities with **$expand**: `GET /Things?$expand=Datastreams`
+
+Eventually, you can combine multiple OData query parameters to create complex queries that allow you to retrieve exactly the data you need from the SensorThings API. This makes it a powerful tool for working with IoT sensor data and building applications that can effectively manage and analyze this data.
+
+- select all the Things that are located in the office, order them by name, return only the first 10 results and include the total count of matching Things:  
+`GET /Things?$filter=properties/location eq 'office'&$orderby=name&$top=10&$count=true`
+
+Finally, it's important to note that the SensorThings API also supports a set of system query options that allow you to perform operations such as counting the total number of entities in a collection, retrieving the metadata for the API, and more. These system query options are prefixed with a $ and can be used in combination with the OData query parameters to further customize your requests to the SensorThings API.
+
+![OData System Query Options](../images/odata_operations.png)
