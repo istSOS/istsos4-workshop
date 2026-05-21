@@ -12,7 +12,7 @@ services:
       - istsos4-workshop-net
 
   database:
-    image: ghcr.io/istsos/istsos4/database:1.7
+    image: ghcr.io/istsos/istsos4/database:1.8
     container_name: istsos4-workshop-database
     restart: always
     environment:
@@ -43,7 +43,7 @@ services:
       - istsos4-workshop-net
 
   api:
-    image: ghcr.io/istsos/istsos4/api:1.15
+    image: ghcr.io/istsos/istsos4/api:1.16
     container_name: istsos4-workshop-api
     restart: always
     depends_on:
