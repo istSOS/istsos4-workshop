@@ -1,74 +1,14 @@
-# # Triggers a Docker workflow on push events and PRs but
-# # pushes to DockerHub only for push on the main branch.
-# #
-# # Inspired from: https://github.com/geopython/geopython-workshop/blob/master/.github/workflows/docker.yml
-# #
-# name: Docker Build ⚓
+name: Docker Build ⚓
 
-# on:
-#   push:
-#     branches:
-#       - main
-#     paths:
-#       - workshop/jupyter/Dockerfile
-#       - workshop/jupyter/entrypoint.sh
-#       - workshop/jupyter/requirements.txt
-#       - .github/workflows/docker.yml
+on:
+  workflow_dispatch:
 
-#   pull_request:
-#     paths:
-#       - workshop/jupyter/Dockerfile
-#       - workshop/jupyter/entrypoint.sh
-#       - workshop/jupyter/requirements.txt
-#       - .github/workflows/docker.yml
+permissions: {}
 
-# jobs:
-#   build_push:
-
-#     name: Build and Push Docker Image to DockerHub
-
-#     runs-on: ubuntu-latest
-
-#     steps:
-#       - name: Checkout ✅
-#         uses: actions/checkout@v4
-
-#       - name: Prepare 📦
-#         id: prep
-#         run: |
-#           DOCKER_IMAGE=istsos/istsos4-workshop
-#           VERSION=latest
-#           TAGS="${DOCKER_IMAGE}:${VERSION}"
-#           echo "image=${DOCKER_IMAGE}" >> $GITHUB_OUTPUT
-#           echo "version=${VERSION}" >> $GITHUB_OUTPUT
-#           echo "tags=${TAGS}" >> $GITHUB_OUTPUT
-#           echo "created=$(date -u +'%Y-%m-%dT%H:%M:%SZ')" >> $GITHUB_OUTPUT
-
-#       - name: Show Image Settings 📦
-#         run: echo "IMAGE=${{ steps.prep.outputs.image }} VERSION=${{ steps.prep.outputs.version }} TAGS=${{ steps.prep.outputs.tags }}"
-
-#       - name: Set up Docker Buildx 📦
-#         uses: docker/setup-buildx-action@v3
-
-#       - name: Docker Build only - retain local Image 📦
-#         uses: docker/build-push-action@v6
-#         with:
-#           context: workshop/jupyter
-#           load: true
-#           push: false
-#           tags: ${{ steps.prep.outputs.tags }}
-#           labels: |
-#             org.opencontainers.image.source=${{ github.event.repository.html_url }}
-#             org.opencontainers.image.created=${{ steps.prep.outputs.created }}
-#             org.opencontainers.image.revision=${{ github.sha }}
-
-#       - name: Login to DockerHub 📦
-#         if: github.event_name != 'pull_request'
-#         uses: docker/login-action@v3
-#         with:
-#           username: ${{ secrets.DOCKER_USERNAME }}
-#           password: ${{ secrets.DOCKER_PASSWORD }}
-
-#       - name: Push to Docker repo (on GH Push only) ☁️
-#         if: ${{ github.event_name == 'push' }}
-#         run: docker push ${{ steps.prep.outputs.image }}:${{ steps.prep.outputs.version }}
+jobs:
+  disabled:
+    name: Docker build disabled
+    runs-on: ubuntu-latest
+    steps:
+      - name: Skip
+        run: echo "Docker workflow is disabled."
