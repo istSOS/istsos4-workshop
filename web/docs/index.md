@@ -33,7 +33,7 @@ This workshop provides an introduction to the OGC SensorThings API and its imple
 
 ## Licenses
 
-istSOS4 is released under the [MIT License](https://opensource.org/licenses/MIT), which allows for free use, modification, and distribution of the software. Source code is available on [GitHub](https://github.com/istSOS/istSOS4/).
+istSOS4 is released under the [MIT License](https://opensource.org/licenses/MIT), which allows for free use, modification, and distribution of the software. Source code is available on [GitHub](https://github.com/istSOS/v4).
 
 This workshop material is released under the
 [Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)](https://creativecommons.org/licenses/by-sa/4.0).

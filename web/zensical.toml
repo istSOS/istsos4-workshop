@@ -30,9 +30,13 @@ nav = [
         "standards/interoperability.md",
         "standards/sta.md"
     ]},
-    {"Tutorial" = [
-        "tutorial/swagger.md",
-        "tutorial/ui.md"
+    {"Tutorial Basic" = [
+        "basic/swagger.md",
+        "basic/ui.md"
+    ]},
+    {"Tutorial Advanced" = [
+        "advanced/intro.md",
+        "advanced/00_Introduction.md"
     ]},
     {"About" = [
         {"Team (c)" = "about/team.md"},
