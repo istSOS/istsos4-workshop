@@ -35,8 +35,11 @@ nav = [
         "basic/ui.md"
     ]},
     {"Tutorial Advanced" = [
-        "advanced/intro.md",
-        "advanced/00_Introduction.md"
+        "advanced/00_Introduction.md",
+        "advanced/01_Authorization.md",
+        "advanced/02_STA_Entities.md",
+        "advanced/03_STA_Observations.md",
+        "advanced/04_Time_Travel.md"
     ]},
     {"About" = [
         {"Team (c)" = "about/team.md"},
