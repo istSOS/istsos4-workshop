@@ -51,35 +51,71 @@ So, let's review it from that simplified point of view:
     - So, to authenticate with our API, it sends a header <code>Authorization</code> with a value of <code>Bearer</code> plus the token.  
     Foe example: if the token contains foobar, the content of the <code>Authorization</code> header would be: <code>Bearer foobar</code>.
 
+![Authorization Flow](../images/auth_flow.png)
+
 ## SensorThings Roles and Permissions
 In istSOS4 users have specific roles which define their access permissions.  
-Permissions are managed trough database privileges to access specific tables of the Sensorthings schema.  
-Therefore each role has a set of privileges that define the level of access granted to specific tables in the system.  
+Permissions are managed trough database privileges to access specific entity of the Sensorthings schema.  
+Therefore each role has a set of privileges that define the level of access granted to specific entity in the system.  
 The following table outlines the different defined roles and their corresponding permissions.  
 
 
 
-| Role          | Description                                          | Table Permissions                                                                                                                                                                            |
+| Role          | Description                                          | Entity Permissions                                                                                                                                                                            |
 | ------------- | ---------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `admin`       | Have all the privileges                              | All `PRIVILEGES` on all tables of sensorthings schema                                                                                                                                        |
-| `viewer`      | Only view capabilities                               | `SELECT` privilege on all tables                                                                                                                                                             |
-| `editor`      | Can do everything except defining users            | `SELECT` privilege on all tables<br>`INSERT`, `UPDATE`, `DELETE` privileges on all tables (except User table)                                                                                |
-| `obs_manager` | Can view everything and manage observations          | `SELECT` privilege on all tables<br>`INSERT`, `UPDATE`, `DELETE` privileges on Observation table<br>`INSERT` privilege on FeaturesOfInterest table<br>`UPDATE` privilege on Datastream table |
-| `sensor`      | Can view everything and only insert new observations | `SELECT` privilege on all tables<br>`INSERT` privilege on Observation and FeaturesOfInterest tables<br>`UPDATE` privilege on Datastream table                                                |
+| `admin`       | Have all the privileges                              | All `PRIVILEGES` on all entity of sensorthings schema                                                                                                                                        |
+| `viewer`      | Only view capabilities                               | `SELECT` privilege on all entity                                                                                                                                                             |
+| `editor`      | Can do everything except defining users            | `SELECT` privilege on all entity<br>`INSERT`, `UPDATE`, `DELETE` privileges on all entity (except User element)                                                                                |
+| `obs_manager` | Can view everything and manage observations          | `SELECT` privilege on all entity<br>`INSERT`, `UPDATE`, `DELETE` privileges on Observation element<br>`INSERT` privilege on FeaturesOfInterest element<br>`UPDATE` privilege on Datastream element |
+| `sensor`      | Can view everything and only insert new observations | `SELECT` privilege on all entity<br>`INSERT` privilege on Observation and FeaturesOfInterest elements<br>`UPDATE` privilege on Datastream element                                                |
 
+## Creating Users and Assigning Roles
+To create users and assign roles in istSOS4, you can use the swagger interface to access the API provided by the system. This interface allows you to manage users, assign them specific roles, and control their access permissions.
 
-## Authentication
+### :lucide-play: Login as admin
+To create new users, you need to log in as an admin user. The admin user has full access to the system and can manage users and their roles. By default, the admin user is created with the following credentials:
+
+- **username**: admin
+- **password**: admin
+
 After authenticating in the system, you will see it like:
 
 ![Create Things](../images/authorization3.png)
 
-### Create a Thing
+### :lucide-play: Create a viewer and an editor
+Once you are logged in as an admin, you can create new users and assign them specific roles. 
 
-Login as a Viewer!
+To create a new user, you can send a POST request to the `/users` endpoint with the following JSON body:
+
+```json
+  {
+    "username": "name_of_user",
+    "password": "password_of_user",
+    "uri": "https://orcid.org/0000-0004-3456-7890",
+    "role": "role_of_user"
+  }
+```
+
+Using the swagger interface, you can create:
+
+- a user with the username "editor1/editor1" and assign them the "editor" role, which allows them to manage data but not create new users.
+- a user with the username "viewer1/viewer1" and assign them the "viewer" role, which allows them to only view data without making any changes.
+
+![Create User](../images/auth_create_editor.png)
+
+
+### :lucide-play: Test the authorization
+Now that you have created new users with specific roles, you can test the authorization by logging in with those users and trying to perform actions that are restricted based on their roles.
+
+Now logout from the admin account, login as a Viewer and try to create a Thing!
+
+!!! remember
+    To create an Element you need to execute a POST request with the appropriate body that represents the element you want to create.
 
 ![Login successfull](../images/authorization3b.png)
 
-If you do not have the necessary privileges, you will see the following error message:
+Since you're logged in as a Viewer, you do not have the necessary privileges to create a Thing. You should therefore see the following error message:
+
 ```json
 {
   "code": 401,
@@ -88,39 +124,3 @@ If you do not have the necessary privileges, you will see the following error me
 }
 ```
 
-Now logout, login as editor and try again to create a Thing!
-
-### Retrieve data (Authorization)
-
-To access the data, navigate to the interactive documentation at: <code>/Things</code>.
-
-![Retrieving Data](../images/authorization4.png)
-
-If you have sufficient privileges to access this table, you will receive the data, such as:
-```json
-{
-  "@iot.as_of": "2024-12-10T13:36:56Z",
-  "value": [
-    {
-      "@iot.id": 1,
-      "@iot.selfLink": "http://localhost:8018/istsos4/v1.1/Things(1)",
-      "Locations@iot.navigationLink": "http://localhost:8018/istsos4/v1.1/Things(1)/Locations",
-      "HistoricalLocations@iot.navigationLink": "http://localhost:8018/istsos4/v1.1/Things(1)/HistoricalLocations",
-      "Datastreams@iot.navigationLink": "http://localhost:8018/istsos4/v1.1/Things(1)/Datastreams",
-      "name": "thing name 1",
-      "description": "thing 1",
-      "properties": {
-        "reference": "1"
-      },
-      "Commit@iot.navigationLink": "http://localhost:8018/istsos4/v1.1/Things(1)/Commit(1)"
-    },
-  ]
-}
-```
-
-If you click the lock icon to log out and attempt the same operation again, you will receive an HTTP 401 error with the following response:
-```json
-{
-  "detail": "Not authenticated"
-}
-```

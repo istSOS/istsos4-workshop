@@ -17,9 +17,13 @@ In our implementation, we have defined an OAuth2 security scheme in the OpenAPI 
 Open a browser and enter the URL to navigate to the istSOS4 baseurl with the `/docs` location:  
 <https://localhost:8018/istsos4/v1.1/docs> or <https://istsos.org/v4/v1.1/docs>  
 and check the top-right corner of the page. You should see a "Authorize" button, which indicates that the OAuth2 security scheme is defined and available for use.
-Since we have enabled the anonymous viewer in our configuration, you can access the API endpoints for `reading` without providing any credentials. This allows you to explore the API and test its functionality without needing to authenticate.
 
 ![Swagger UI with Authorize Button](../images/swagger1.png)
+
+Since we have enabled the `anonymous` viewer in our configuration, you can access the API endpoints for `reading` without providing any credentials. This means that most of the `GET` endpoints are visible in the Swagger UI without the "Authorize" button (:lucide-lock-open:) and are accessible without needing to authenticate.
+
+![Swagger UI with non Authorize Button](../images/swagger_no_lock.png)
+
 
 ### :lucide-play: Explore the offered Things
 In the Swagger UI, you can see a list of available API endpoints. Look for the endpoints related to "Things" and see the available operations.  
@@ -34,6 +38,9 @@ You can try to use the parameters, for example:
 - setting `$filter=name eq 'thing_name_2'` to filter the results by a specific name. 
 - setting `$orderby=name desc` to order the results by name in descending order.
 - setting `$select=name,properties/reference` to select only specific properties of the Things.
+- setting `$top=1&$expand=Locations` to include related Locations in the response.
+- setting `$top=1&$expand=Locations($select=name,location)` to include related Locations in the response with specific properties.
 
 This allow you to see how the API handles query parameters and how it affects the response.
 
+![Swagger UI with GET /Things Endpoint with Parameters](../images/swagger_things_response.png)

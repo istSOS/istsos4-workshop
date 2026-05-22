@@ -32,14 +32,18 @@ nav = [
     ]},
     {"Tutorial Basic" = [
         "basic/swagger.md",
+        "basic/authorization.md",
+        "basic/traveltime.md",
+        "basic/traveltime_extension.md",
+        "basic/sensors.md",
         "basic/ui.md"
     ]},
     {"Tutorial Advanced" = [
+        "advanced/intro.md",
         "advanced/00_Introduction.md",
         "advanced/01_Authorization.md",
         "advanced/02_STA_Entities.md",
-        "advanced/03_STA_Observations.md",
-        "advanced/04_Time_Travel.md"
+        "advanced/03_STA_Observation.md"
     ]},
     {"About" = [
         {"Team (c)" = "about/team.md"},
@@ -49,6 +53,7 @@ nav = [
 
 [project.theme]
 logo = "images/istsos_bars.png"
+favicon = "images/favicon.ico"
 features = [
     "navigation.tabs",
     "navigation.tabs.sticky"
