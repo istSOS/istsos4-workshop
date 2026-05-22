@@ -88,34 +88,6 @@ def login(server_url, username, password, timeout=REQUEST_TIMEOUT):
     return body["access_token"], body
 
 
-def get_network_id_by_name(
-    server_url,
-    token,
-    network_name,
-    timeout=REQUEST_TIMEOUT,
-):
-    """Return the @iot.id of the first Network with the given name."""
-    response = requests.get(
-        f"{server_url}/Networks",
-        headers=auth_headers(token),
-        params={
-            "$filter": f"name eq '{network_name}'",
-            "$select": "id",
-        },
-        timeout=timeout,
-    )
-
-    if response.status_code != 200:
-        display_error_response(response)
-        raise Exception("Failed to retrieve Network")
-
-    values = response.json().get("value", [])
-    if not values:
-        raise Exception(f"Network not found: {network_name}")
-
-    return values[0]["@iot.id"]
-
-
 def get_or_create_network(
     server_url,
     token,
@@ -203,9 +175,13 @@ def build_column_to_datastream_id(body, created_datastreams):
 
     for column_name, datastream_name in column_to_datastream_name.items():
         if datastream_name not in datastream_name_to_id:
-            raise Exception(f"Datastream not found on server: {datastream_name}")
+            raise Exception(
+                f"Datastream not found on server: {datastream_name}"
+            )
 
-        column_to_datastream_id[column_name] = datastream_name_to_id[datastream_name]
+        column_to_datastream_id[column_name] = datastream_name_to_id[
+            datastream_name
+        ]
 
     return column_to_datastream_id
 
@@ -243,7 +219,9 @@ def read_observations_csv(csv_path, time_column, required_value_columns=None):
         ]
 
         if missing_value_columns:
-            raise Exception(f"Missing CSV value columns: {missing_value_columns}")
+            raise Exception(
+                f"Missing CSV value columns: {missing_value_columns}"
+            )
 
     df = normalize_time_column(df, time_column)
 
@@ -288,7 +266,9 @@ def build_bulk_observations(df, time_column, column_to_datastream_id):
             if pd.isna(phenomenon_time) or pd.isna(result):
                 continue
 
-            phenomenon_time_iso = phenomenon_time.isoformat().replace("+00:00", "Z")
+            phenomenon_time_iso = phenomenon_time.isoformat().replace(
+                "+00:00", "Z"
+            )
 
             data_array.append(
                 [
