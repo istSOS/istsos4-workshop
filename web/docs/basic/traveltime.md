@@ -51,38 +51,64 @@ you need to provide a `commit-message` in the header of the request. This is a m
 ![Versioning and commit messages](../images/versioning_flow.png)
 
 ### :lucide-play: Create a Thing
-Now login as editor and try again to create a Thing! 
-[swagger with docker](http://localhost:8018/v4/v1.1/docs#/Things/create_thing_Things_post)
-[swagger with istSOS portal](https://istsos.org/v4/v1.1/docs#/Things/create_thing_Things_post)
+Now login as editor and try again to create a Thing!  
+[swagger with docker](http://localhost:8018/v4/v1.1/docs#/Things/create_thing_Things_post)  
+[swagger with istSOS portal](https://istsos.org/v4/v1.1/docs#/Things/create_thing_Things_post)  
 
 Since you're logged in as an Editor, you have the necessary privileges to create a Thing.
 
-You can send a POST request to the `/Things` endpoint with the following JSON body:
+You can send a POST request to the `/Things` with the following commit message in the header:
+
+    commit-message: "Creating a new Thing for Lugano Lake"
+
+And the following JSON body:
 
 ```json
 {
-  "description": "thing 1",
-  "name": "thing name 1",
+  "name": "Lugano Lake",
+  "description": "The Alpine Lake located in the southern part of Switzerland",
   "properties": {
-    "reference": "first"
+    "Catchment area": "565.6 km2",
+    "Maximum depth": "288 m",
+    "Surface Area": "38.7 km2",
+    "Avereage depth": "124 m",
+    "Water volume": "6.5 km3",
+    "Surface elevation": "271 m",
+    "Primary inflows": ["Cassarate", "Vedeggio", "Magliasina", "Cuccio", "Laveggio", "Bolletta", "Scairolo"],
+    "Primary outflows": ["Tresa"]
   }
 }
 ```
 
-At this point you should see and error message indicating that you didn't provide any `commit-message` in the header of the request, which is mandatory to create or update any element in the system since we have enabled the `VERSIONING` option in our configuration.
+!!! Warning
 
+    You may get an error message if you didn't provide any `commit-message` in the header of the request, 
+    which is mandatory to create or update any element in the system since we have enabled the `VERSIONING` option in our configuration.
 
 You should therefore see the following response:
 
+    Code	201	Created
+    Response headers
+    content-length: 0 
+    date: Fri,22 May 2026 16:08:03 GMT 
+    location: http://localhost:8018/v4/v1.1/Things(<id> 
+    server: uvicorn 
+
+### :lucide-play: Update a Thing
+Now, let's try to update the Thing we just created. You can send a PATCH request to the `/Things(<id>)` endpoint with the following COmmit-message and JSON body:
+
+    commit-message: "Updated surface area and average depth of Lugano Lake"
+
 ```json
 {
-  "@iot.id": 2,
-  "@iot.selfLink": "http://localhost:8018/istsos4/v1.1/Things(2)",
-  "
+  "properties": {
+    "Surface Area": "48.7 km2",
+    "Avereage depth": "134 m",
+  }
+}
 ```
 
-
-### Retrieve data (Authorization)
+### :lucide-play: Retrieve data
 
 To access the data, navigate to the interactive documentation at: <code>/Things</code>.
 

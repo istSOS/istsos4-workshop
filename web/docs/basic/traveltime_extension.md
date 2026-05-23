@@ -53,7 +53,8 @@ Additionally, the **User** entity is extended with a navigation link to the Comm
 | uri        | URI         | One (mandatory) | The URI that identifies the user (for researcher is ORCID). |
 | role       | string(128) | One (mandatory) | The role of the user. |
 
-
+## Traveltime extension schema
+![traveltime schema](../images/traveltime_schema.png)
 
 ## Requirements
 
