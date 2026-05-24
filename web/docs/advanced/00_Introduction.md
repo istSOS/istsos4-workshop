@@ -1,4 +1,4 @@
-# istSOS4 SensorThings API workshop overview
+# Using Python notebooks
 
 > **Workflow position:** start here.  
 > This notebook introduces the concepts used by notebooks `01` to `04`.
@@ -15,53 +15,6 @@ The workshop follows one continuous path:
 
 Run the notebooks in numerical order. Each notebook assumes the concepts, users, or data created in the previous steps.
 
-## Internet of Things
-
-The **Internet of Things (IoT)** is a network of physical or virtual objects that can collect, exchange, and expose data through digital services.
-
-In environmental monitoring, typical IoT resources include:
-
-- meteorological stations;
-- river and lake monitoring stations;
-- air-quality sensors;
-- traffic and noise sensors;
-- data loggers that periodically send measurements.
-
-These systems produce continuous streams of observations. To make those observations reusable, queryable, and interoperable, the data model and the API need to be standardized.
-
-## OGC SensorThings API
-
-The **OGC SensorThings API** is a web standard from the Open Geospatial Consortium for publishing IoT observations and sensor metadata.
-
-It uses a RESTful API style and JSON/GeoJSON payloads. This makes it practical for web applications, dashboards, data pipelines, and scientific workflows.
-
-The core model used in this workshop is:
-
-| Entity | Meaning | Workshop example |
-|---|---|---|
-| `Thing` | The physical or logical object being observed | A station or platform |
-| `Location` | Where the `Thing` is located | A point geometry in `EPSG:2056` |
-| `Sensor` | The device or method that produces measurements | Temperature, precipitation, or voltage sensor |
-| `ObservedProperty` | The phenomenon being measured | Air temperature, relative humidity, voltage |
-| `Datastream` | The link between `Thing`, `Sensor`, `ObservedProperty`, and unit | A time series for one measured variable |
-| `Observation` | One measured value with time information | A single temperature or voltage value |
-| `FeatureOfInterest` | The feature whose property is observed | Usually derived from the station location in this workshop |
-
-## istSOS4
-
-**istSOS4** is an open-source implementation of the OGC SensorThings API developed at the Institute of Earth Sciences of SUPSI.
-
-In this workshop, istSOS4 is used as the backend service that stores users, policies, SensorThings entities, observations, and historical versions.
-
-Main technical characteristics:
-
-- Python web API based on FastAPI;
-- relational storage through SQLAlchemy and PostgreSQL;
-- geospatial support through PostGIS;
-- JSON/GeoJSON REST interface;
-- support for SensorThings API workflows and istSOS4 extensions such as Networks and time travel.
-
-Repository: <https://github.com/istSOS/istSOS4>
 
 ## Workshop conventions
 

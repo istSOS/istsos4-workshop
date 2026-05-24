@@ -25,25 +25,29 @@ nav = [
         "getting_started/configuration.md",
         "getting_started/authorization.md"
     ]},
-    {"Standards" = [
-        "standards/sensing.md",
-        "standards/interoperability.md",
-        "standards/sta.md"
+    {"Key concepts" = [
+        "concepts/sensing.md",
+        "concepts/interoperability.md",
+        "concepts/sta.md",
+        "concepts/authentication.md",
+        "concepts/temporal_query.md",
+        "concepts/open_science.md",
+        "concepts/traveltime_extension.md"
     ]},
     {"Tutorial Basic" = [
         "basic/swagger.md",
         "basic/authorization.md",
         "basic/traveltime.md",
-        "basic/traveltime_extension.md",
         "basic/sensors.md",
-        "basic/ui.md"
+        "basic/ui.md",
+        "basic/view_data.md"
     ]},
     {"Tutorial Advanced" = [
-        "advanced/intro.md",
         "advanced/00_Introduction.md",
         "advanced/01_Authorization.md",
         "advanced/02_STA_Entities.md",
-        "advanced/03_STA_Observation.md"
+        "advanced/03_STA_Observations.md",
+        "advanced/04_Time_Travel.md"
     ]},
     {"About" = [
         {"Team (c)" = "about/team.md"},

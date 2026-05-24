@@ -1,5 +1,5 @@
 ---
-title: Treveltime extension
+title: Traveltime extension (Pilot)
 description: Managing traveltime in istSOS4 SensorThingsAPI implementation
 icon: lucide/database-backup
 ---
@@ -49,9 +49,28 @@ Additionally, the **User** entity is extended with a navigation link to the Comm
 | Properties | Type | Multiplicity and use | Description |
 | ---------- | ---- | -------------------- | ----------- |
 | username   | string(128) | One (mandatory) | The username of the user. |
-| contact    | json        | One (optional)  | The json that describe the contact information including email, phone, and address. |
+| contact    | json        | One (optional)  | The json that describe the contact information (suggested a Json version of the <ContactInformation> object from [OGC and ISO 19128 XML schemas](https://docs.ogc.org/is/06-042/06-042.pdf)). |
 | uri        | URI         | One (mandatory) | The URI that identifies the user (for researcher is ORCID). |
 | role       | string(128) | One (mandatory) | The role of the user. |
+
+
+```json
+{
+    "ContactPerson": "Jeff Smith",
+    "ContactOrganization": "NASA",
+    "ContactPosition": "Computer Scientist",
+    "ContactAddress": {
+        "AddressType": "postal",
+        "Address": "NASA Goddard Space Flight Center",
+        "City": "Greenbelt",
+        "StateOrProvince": "MD",
+        "PostCode": "20771",
+        "Country": "USA"
+    },
+    "ContactVoiceTelephone": "+1 301 555-1212",
+    "ContactElectronicMailAddress": "user@host.com"
+}
+```
 
 ## Traveltime extension schema
 ![traveltime schema](../images/traveltime_schema.png)

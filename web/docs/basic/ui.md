@@ -1,12 +1,12 @@
 ---
-title: Exploring the User Interface
+title: Registering nodes
 description: Learn how to navigate the istSOS4 user interface and create the SensorThings entities required for a sensor configuration.
 icon: lucide/app-window
 ---
 
 # Exploring the User Interface
 
-This tutorial explains how to use the istSOS4 user interface to create and connect the entities required for a sensor configuration.
+This section explains how to use the istSOS4 user interface to create and connect the entities required for a sensor configuration.
 
 The user interface lets us work with the platform visually, without sending API requests manually. In this workflow, we will create and associate the main SensorThings entities:
 
