@@ -104,14 +104,10 @@ The Sensor describes the device or procedure used to produce the observations. I
 
 Select **New Sensor** and complete the fields as follows:
 
-- **Name:** `IT_SENSOR_GROUP_<number>`
+- **Name:** `GROUP_<number>_INTERNAL_TEMPERATURE_SENSOR`
 - **Encoding Type:** `application/json`
 - **Metadata:** `IT`
 - **Description:** `Internal temperature channel of GROUP_<number>`
-
-For example, if you are working with `GROUP_3`, the Sensor name should be:
-
-`IT_SENSOR_GROUP_3`
 
 <div align="center">
   <img src="../images/ui/sensor.png" alt="Create a new Sensor" style="border: 1px solid #000;" />
@@ -143,7 +139,7 @@ A Datastream connects the **Thing**, **Sensor**, and **Observed Property**. It d
 
 Select **New Datastream** and complete the fields as follows:
 
-- **Name:** `IT_GROUP_<number>`
+- **Name:** `INTERNAL_TEMPERATURE_GROUP_<number>`
 - **Observation Type:** `http://www.opengis.net/def/observationType/OGC-OM/2.0/OM_Measurement`
 - **Description:** `Internal air temperature measured by GROUP_<number>`
 - **Unit of Measurement:**
@@ -155,10 +151,6 @@ Select **New Datastream** and complete the fields as follows:
   - **Name:** `samplingFrequency`
   - **Value:** `PT5M`
 - **Network:** `DDT_network`
-
-For example, if you are working with `GROUP_3`, the Datastream name should be:
-
-`IT_GROUP_3`
 
 <div align="center">
   <img src="../images/ui/datastream.png" alt="Create a new Datastream" style="border: 1px solid #000;" />
@@ -180,7 +172,7 @@ Before completing the process, verify that:
 
 Then enter a **Commit Message** that clearly describes the operation, for example:
 
-`IT for GROUP_<number>`
+`INTERNAL_TEMPERATURE for GROUP_<number>`
 
 <div align="center">
   <img src="../images/ui/review.png" alt="Review the entity configuration" style="border: 1px solid #000;" />
