@@ -89,21 +89,14 @@ services:
       - istsos4-workshop-net
 
   grafana:
-    image: ghcr.io/istsos/supsi-istsos4-grafana:0.1
+    image: ghcr.io/istsos/supsi-istsos4-grafana:0.2
     container_name: istsos4-workshop-grafana
     ports:
       - 3000:3000
-    environment:
-      GF_SECURITY_ADMIN_USER: admin
-      GF_SECURITY_ADMIN_PASSWORD: admin
-      GF_SERVER_DOMAIN: istsos.org
-      GF_PLUGINS_ALLOW_LOADING_UNSIGNED_PLUGINS: supsi-istsos4
-      GF_SERVER_ROOT_URL: https://istsos.org/grafana
-      GF_SERVER_SERVE_FROM_SUB_PATH: true
-      GF_SECURITY_ALLOW_EMBEDDING: true
-      GF_SECURITY_COOKIE_SAMESITE: lax
     volumes:
       - v-istsos4-workshop-grafana:/var/lib/grafana
+    networks:
+      - istsos4-workshop-net
 
   gui:
     image: ghcr.io/istsos/istsos4/gui:1.0
@@ -115,7 +108,6 @@ services:
       NEXT_PUBLIC_BASE_PATH: /gui
     networks:
       - istsos4-workshop-net
-
 
   dummy_data:
     image: ghcr.io/istsos/istsos4/dummy_data:1.7
