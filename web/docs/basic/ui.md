@@ -188,79 +188,51 @@ Then enter a **Commit Message** that clearly describes the operation, for exampl
 
 After reviewing the configuration and entering the commit message, click **Finish** to complete the creation process.
 
-### :lucide-play: Repeat the Process for the Other Observed Properties
+### :lucide-play: Create the Remaining Entities with Import from File
 
-After creating the Datastream for internal temperature, repeat the same workflow for the remaining observed properties.
+Instead of repeating the creation wizard manually for each observed property, you can create the remaining sensors and datastreams using the **Import from file** function of the istSOS4 user interface.
 
-The remaining observed properties are listed below.
+From the map, right-click to open the context menu, then select **Import from file**.
 
-For each Observed Property, create a dedicated **Sensor** and a dedicated **Datastream**.  
-The `unitOfMeasurement` value must be entered in the **Datastream**, because it is a Datastream key that describes the unit used by the observations in that specific data stream.
+<div align="center">
+  <img src="../images/ui/import-from-file.png" alt="Import entities from file using the map context menu" style="border: 1px solid #000;" />
+</div>
+
+Use the import template file available at the following link:
+
+[Download the import template file](https://geoservice2.ist.supsi.ch/data/GROUP_010.csv)
+
+Before importing the file, edit it and replace the Sensor and Datastream names with the identifiers of your group.
+
+For example, if you are working with `GROUP_010`, make sure that the entities in the file use names consistent with your group identifier, such as:
+
+- `INTERNAL_TEMPERATURE_GROUP_010`
+- `INTERNAL_HUMIDITY_GROUP_010`
+- `INTERNAL_PRESSURE_GROUP_010`
+- `INTERNAL_LUX_GROUP_010`
+- `EXTERNAL_WALL_TEMPERATURE_GROUP_010`
+- `EXTERNAL_WATER_TEMPERATURE_GROUP_010`
+- `SENSOR_BATTERY_GROUP_010`
+
+The same rule applies to the corresponding Sensor names: each Sensor must clearly refer to the same group identifier used by the Datastream.
+
+The import file can be used to create the entities for the remaining observed properties:
 
 - `internal:air:humidity`
-
-  ```json
-  "unitOfMeasurement": {
-    "name": "Percent",
-    "symbol": "%"
-  }
-  ```
-
 - `internal:pressure`
-
-  ```json
-  "unitOfMeasurement": {
-    "name": "Hectopascal",
-    "symbol": "hPa"
-  }
-  ```
-
 - `internal:lux`
-
-  ```json
-  "unitOfMeasurement": {
-    "name": "Lux",
-    "symbol": "lx"
-  }
-  ```
-
 - `external:wall:temperature`
-
-  ```json
-  "unitOfMeasurement": {
-    "name": "Degree Celsius",
-    "symbol": "°C"
-  }
-  ```
-
 - `external:water:temperature`
-
-  ```json
-  "unitOfMeasurement": {
-    "name": "Degree Celsius",
-    "symbol": "°C"
-  }
-  ```
-
 - `sensor:battery`
 
-  ```json
-  "unitOfMeasurement": {
-    "name": "Battery level fraction",
-    "symbol": "1"
-  }
-  ```
+Each imported Datastream must still define the correct `unitOfMeasurement`, because the unit is stored as part of the Datastream configuration.
 
-For each property, adapt the Sensor and Datastream names according to the measurement type while keeping the same group number.
+After selecting the file, the interface processes the import and displays a summary of the operation. The import preview shows which entities have been created and which entities already existed in the system.
 
-For example, if you are working with `GROUP_3`, every Datastream should refer to `GROUP_3` and clearly describe the specific measurement it represents.
+<div align="center">
+  <img src="../images/ui/import-preview.png" alt="Import summary showing created and existing entities" style="border: 1px solid #000;" />
+</div>
 
-Before clicking **Finish**, always check the **Review** section and make sure that:
+Use the summary to verify that all required entities have been created correctly. In particular, check the counts for **Things**, **Sensors**, **Observed Properties**, and **Datastreams**, and review the live log to confirm that the expected group-specific entities were imported.
 
-- the correct Observed Property has been selected;
-- the Sensor name matches the selected property;
-- the Datastream name is clear and consistent;
-- the Datastream is associated with the correct Thing and Network;
-- the Commit Message describes the operation clearly.
-
-After all observed properties have been configured, the sensor group is fully described in the system and ready to receive observations.
+After the import is complete, the sensor group is fully described in the system and ready to receive observations.
