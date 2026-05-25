@@ -7,7 +7,7 @@ icon: lucide/key
 ## OpenAPI and Authorization
 OpenAPI is a specification for building APIs that includes support for defining security schemes and requirements. In our implementation, we have defined an OAuth2 security scheme in the OpenAPI documentation, which allows us to specify the [authentication](../concepts/authentication.md) mechanism for our API endpoints.
 
-Navigate to the interactive documentation at: `/docs` <https://localhost:8018/istsos4/v1.1/docs> or <https://istsos.org/v4/v1.1/docs> and check the top-right corner of the page.
+Navigate to the interactive documentation at: `/docs` <http://localhost:8018/v4/v1.1/docs> or <https://istsos.org/v4/v1.1/docs> and check the top-right corner of the page.
 
 You will see something like this:
 
@@ -63,7 +63,7 @@ After authenticating in the system, you will see it like:
 ### :lucide-play: Create a viewer and an editor
 Once you are logged in as an admin, you can create new users and assign them specific roles. 
 
-To create a new user, you can send a POST request to the `/users` endpoint with the following JSON body:
+To create a new user, you can send a POST request to the `/Users` endpoint with the following JSON body:
 
 ```json
   {
@@ -86,6 +86,30 @@ Using the swagger interface, you can create:
 
 ![Create User](../images/auth_create_editor.png)
 
+### :lucide-play: Create the viewer and editor policies
+
+Once the `editor1` and `viewer1` users have been created, you can assign them access policies.
+
+A policy defines which users can access a specific resource and what level of permissions they have on it.
+
+To create a new policy, send a POST request to the `/Policies` endpoint with the following JSON body.
+
+For the editor user:
+
+```json
+{
+  "users": [
+    "editor1"
+  ],
+  "name": "workshop",
+  "permissions": {
+    "type": "editor"
+  }
+}
+```
+
+![Create User](../images/auth_create_editor_policy.png)
+
 
 ### :lucide-play: Test the authorization
 Now that you have created new users with specific roles, you can test the authorization by logging in with those users and trying to perform actions that are restricted based on their roles.
@@ -106,4 +130,3 @@ Since you're logged in as a Viewer, you do not have the necessary privileges to 
   "message": "Insufficient privileges."
 }
 ```
-
