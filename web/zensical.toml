@@ -23,6 +23,7 @@ nav = [
         "getting_started/installation.md",
         "getting_started/docker.md",
         "getting_started/configuration.md",
+        "getting_started/authorization.md"
     ]},
     {"Key concepts" = [
         "concepts/sensing.md",
