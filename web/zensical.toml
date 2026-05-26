@@ -17,6 +17,7 @@ extra_javascript = [
 
 extra_css = ["stylesheets/extra.css"]
 
+
 nav = [
     {"Getting started" = [
         "getting_started/intro.md",
