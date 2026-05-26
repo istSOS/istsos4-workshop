@@ -7,3 +7,20 @@
 .md-typeset .technology > summary {
   background-color: rgba(68,138,255,0.1);
 }
+
+
+/* .md-typeset h1 {
+  color: hsl(140, 90%, 36%);
+} */
+
+h2 {
+  color: #313237;
+  font-size: x-large;
+  /* font-family: ""; */
+}
+
+
+p {
+  font-size: 18px;
+  text-align: justify;
+}
