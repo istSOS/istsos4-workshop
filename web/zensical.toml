@@ -33,7 +33,7 @@ nav = [
         "concepts/open_science.md",
         "concepts/traveltime_extension.md"
     ]},
-    {"Tutorial Basic" = [
+    {"Swagger & API" = [
         "basic/swagger.md",
         "basic/authorization.md",
         "basic/traveltime.md",
@@ -41,16 +41,15 @@ nav = [
         "basic/ui.md",
         "basic/view_data.md"
     ]},
-    {"Tutorial Advanced" = [
+    {"Python interaction" = [
         "advanced/00_Introduction.md",
         "advanced/01_Authorization.md",
         "advanced/02_STA_Entities.md",
         "advanced/03_STA_Observations.md",
         "advanced/04_Time_Travel.md"
     ]},
-    {"About" = [
-        {"Team (c)" = "about/team.md"},
-        "about/version.md"
+    {"Data Management" = [
+        "analitics/quality_checks.md"
     ]}
 ]
 
