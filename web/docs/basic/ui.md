@@ -233,7 +233,7 @@ After the import is complete, the sensor group is fully described in the system 
 
 - get a battery
 - insert the battery paying attention to the polarity
-- click the rest button (see [Sensor node pinout](../sensors.md#The_Pinout)) to start the device
+- click the rest button (see [Sensor node pinout](sensors#the-pinout)) to start the device
 - check for a white blink on the device, which indicates that the device is powered on and has successfully transmitted the observations to the server
 - go to the user interface and check the Datastreams associated with the group you just configured, for example: `INTERNAL_TEMPERATURE_GROUP_010`
 - click on the Datastream to see the list of observations
