@@ -32,7 +32,7 @@ If you select the **Observed Property** dropdown, you can view the data from all
 
 ### :lucide-play: Create dashboards via Grafana
 
-You can also visualize istSOS4 observations using Grafana. Grafana allows you to create dashboards, configure panels, apply filters, and compare time series from different datastreams.
+You can also visualize istSOS4 observations using Grafana (<http://localhost:3000> or <https://istsos.org/grafana>). Grafana allows you to create dashboards, configure panels, apply filters, and compare time series from different datastreams.
 
 Open Grafana and log in with the default credentials:
 

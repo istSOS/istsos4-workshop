@@ -85,14 +85,3 @@ Finally, connect the WiFi antenna to the LoPy WiFi connector before powering the
 ### :lucide-play: Register sensors in SensorThingsAPI
 Before connecting the power to the device you need to register the sensors in the SensorThingsAPI server following the instructions in the [Register Monitoring Stations](ui.md) section.
 
-### :lucide-play: Power on the device and look at the data
-
-- get a battery
-- insert the battery paying attention to the polarity
-- go to: http://istsos.org/istsos/admin
-- Under the “Services” drop down list select “maxdemo” service
-- select the “Procedure” to see if data are coming looking at the begin and end position
-- if data are coming, click on “Data Management”, then on “Data Viewer”
-- select the “service” maxdemo, “offering” temporary and your “procedure” name
-- click on “add”
-- select a “Property” and click on plot to see data

@@ -228,3 +228,13 @@ After selecting the file, the interface processes the import and displays a summ
 Use the summary to verify that all required entities have been created correctly. In particular, check the counts for **Things**, **Sensors**, **Observed Properties**, and **Datastreams**, and review the live log to confirm that the expected group-specific entities were imported.
 
 After the import is complete, the sensor group is fully described in the system and ready to receive observations.
+
+### :lucide-play: Power on the device and look at the data
+
+- get a battery
+- insert the battery paying attention to the polarity
+- click the rest button (see [Sensor node pinout](../sensors.md#The_Pinout)) to start the device
+- check for a white blink on the device, which indicates that the device is powered on and has successfully transmitted the observations to the server
+- go to the user interface and check the Datastreams associated with the group you just configured, for example: `INTERNAL_TEMPERATURE_GROUP_010`
+- click on the Datastream to see the list of observations
+- check that new observations are being added to the list in real-time as the device transmits data to the server
