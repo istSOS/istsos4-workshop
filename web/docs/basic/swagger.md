@@ -32,7 +32,7 @@ This will send a request to the API and display the response, which should inclu
 
 ![Swagger UI with GET /Things Endpoint](../images/swagger_things.png)
 
-You can try to use the parameters, for example:
+You can try to use the parameters, as defined in the [OData specification](../concepts/sta.md#odata), for example:
 
 - setting `$top=1` to limit the number of results returned.
 - setting `$filter=name eq 'thing_name_2'` to filter the results by a specific name. 
