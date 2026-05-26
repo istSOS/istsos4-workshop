@@ -35,9 +35,9 @@ This will send a request to the API and display the response, which should inclu
 You can try to use the parameters, as defined in the [OData specification](../concepts/sta.md#odata), for example:
 
 - setting `$top=1` to limit the number of results returned.
-- setting `$filter=name eq 'thing_name_2'` to filter the results by a specific name. 
+- setting `$filter=name eq 'SON'` to filter the results by a specific name. 
 - setting `$orderby=name desc` to order the results by name in descending order.
-- setting `$select=name,properties/reference` to select only specific properties of the Things.
+- setting `$select=name,properties/keywords` to select only specific properties of the Things.
 - setting `$top=1&$expand=Locations` to include related Locations in the response.
 - setting `$top=1&$expand=Locations($select=name,location)` to include related Locations in the response with specific properties.
 
