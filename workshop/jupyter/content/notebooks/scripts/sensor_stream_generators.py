@@ -12,6 +12,14 @@ The column names are available with:
 
     generator.cols()
 
+You can use a predefined case:
+
+    generator = RealTimeSensorGenerator("river_level")
+
+Or pass one custom case with the same structure as CASE_PARAMETERS["river_level"]:
+
+    generator = RealTimeSensorGenerator(my_case_parameters)
+
 Quality flags are NOT produced by the generator. Students should classify values
 in their notebook and then push observations to istSOS4.
 """
@@ -24,9 +32,22 @@ from datetime import datetime, timezone
 from typing import Dict, Iterator, List, Optional, Sequence, Union
 
 Number = Union[int, float]
+ParameterConfig = Dict[str, Union[Number, str, Sequence[Number], None]]
+CaseParameters = Dict[str, ParameterConfig]
 
 
-CASE_PARAMETERS: Dict[str, Dict[str, dict]] = {
+PARAMETER_MEANINGS: Dict[str, str] = {
+    "base": "Initial normal value and baseline used by the synthetic signal.",
+    "noise": "Standard deviation of the random measurement noise added at each step.",
+    "drift": "Linear baseline change added at each generated step to simulate slow sensor or environmental drift.",
+    "statistical": "Expected normal range. Values outside this range but inside plausible are classified as suspicious by quality_flag().",
+    "plausible": "Physically plausible range. Values outside this range are classified as alarm by quality_flag().",
+    "alarm_direction": "Direction used during alarm periods: high, low, or high_abs for absolute positive/negative excursions.",
+    "alarm_target": "Optional target value generated during alarm periods. If omitted, the alarm is generated outside the plausible range.",
+}
+
+
+CASE_PARAMETERS: Dict[str, CaseParameters] = {
     "river_level": {
         "water_level_m": {
             "base": 0.85,
@@ -152,7 +173,20 @@ class RealTimeSensorGenerator:
     Parameters
     ----------
     case_name:
-        One of: river_level, slope_stability, bridge_structural, urban_rainfall.
+        One of the predefined cases: river_level, slope_stability,
+        bridge_structural, urban_rainfall. If case_parameters is provided,
+        this is only used as the custom case label.
+    case_parameters:
+        Optional custom parameter configuration with the same structure used by
+        CASE_PARAMETERS[case_name]. The first-level keys are observation names.
+        Each observation configuration supports:
+        - base: initial normal value and baseline.
+        - noise: random noise standard deviation.
+        - drift: baseline change per generated step.
+        - statistical: expected normal range, as (min, max).
+        - plausible: physically plausible range, as (min, max).
+        - alarm_direction: high, low, or high_abs.
+        - alarm_target: optional value used during alarm periods.
     step_seconds:
         Real waiting time between two generated rows. Use 30 for the workshop.
     alarm_after_seconds:
@@ -172,8 +206,9 @@ class RealTimeSensorGenerator:
 
     def __init__(
         self,
-        case_name: str,
+        case_name: Union[str, CaseParameters],
         *,
+        case_parameters: Optional[CaseParameters] = None,
         step_seconds: int = 30,
         alarm_after_seconds: int = 600,
         alarm_duration_seconds: int = 180,
@@ -181,8 +216,19 @@ class RealTimeSensorGenerator:
         suspect_probability: float = 0.08,
         seed: Optional[int] = None,
     ) -> None:
-        if case_name not in CASE_PARAMETERS:
+        if isinstance(case_name, dict):
+            if case_parameters is not None:
+                raise ValueError("Pass either case_name or case_parameters, not both")
+            parameters = case_name
+            case_label = "custom"
+        else:
+            case_label = case_name
+            parameters = case_parameters
+
+        if parameters is None and case_label not in CASE_PARAMETERS:
             raise ValueError(f"Unknown case_name: {case_name}. Available: {list(CASE_PARAMETERS)}")
+        parameters = parameters or CASE_PARAMETERS[case_label]
+        self._validate_case_parameters(parameters)
         if step_seconds <= 0:
             raise ValueError("step_seconds must be > 0")
         if alarm_after_seconds < 0:
@@ -192,7 +238,8 @@ class RealTimeSensorGenerator:
         if alarm_repeat_seconds is not None and alarm_repeat_seconds <= 0:
             raise ValueError("alarm_repeat_seconds must be None or > 0")
 
-        self.case_name = case_name
+        self.case_name = case_label
+        self.case_parameters = parameters
         self.step_seconds = step_seconds
         self.alarm_after_seconds = alarm_after_seconds
         self.alarm_duration_seconds = alarm_duration_seconds
@@ -202,13 +249,17 @@ class RealTimeSensorGenerator:
         self.step_index = 0
         self.elapsed_seconds = 0
         self._state: Dict[str, float] = {
-            name: cfg["base"] for name, cfg in CASE_PARAMETERS[case_name].items()
+            name: float(cfg["base"]) for name, cfg in self.case_parameters.items()
         }
         self._last_status = "normal"
 
     def cols(self) -> List[str]:
         """Return the column names of the generated row."""
-        return ["phenomenonTime", *CASE_PARAMETERS[self.case_name].keys()]
+        return ["phenomenonTime", *self.case_parameters.keys()]
+
+    def parameter_meanings(self) -> Dict[str, str]:
+        """Return the meaning of each configuration field."""
+        return dict(PARAMETER_MEANINGS)
 
     def status(self) -> str:
         """Return the status of the last generated row: normal, suspicious, or alarm."""
@@ -227,7 +278,7 @@ class RealTimeSensorGenerator:
         timestamp = datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
         values: List[float] = []
 
-        for i, (name, cfg) in enumerate(CASE_PARAMETERS[self.case_name].items()):
+        for i, (name, cfg) in enumerate(self.case_parameters.items()):
             if row_status == "alarm":
                 value = self._alarm_value(cfg, rng, parameter_index=i)
             else:
@@ -260,16 +311,16 @@ class RealTimeSensorGenerator:
         cycle_elapsed = (self.elapsed_seconds - self.alarm_after_seconds) % self.alarm_repeat_seconds
         return "alarm" if cycle_elapsed < self.alarm_duration_seconds else "normal"
 
-    def _normal_value(self, name: str, cfg: dict, rng: random.Random) -> float:
+    def _normal_value(self, name: str, cfg: ParameterConfig, rng: random.Random) -> float:
         previous = self._state[name]
-        baseline = cfg["base"] + cfg.get("drift", 0.0) * self.step_index
+        baseline = float(cfg["base"]) + float(cfg.get("drift", 0.0) or 0.0) * self.step_index
         # Autoregressive behaviour: smooth evolution, not independent white noise.
-        value = previous * 0.80 + baseline * 0.20 + rng.gauss(0, cfg.get("noise", 1.0))
+        value = previous * 0.80 + baseline * 0.20 + rng.gauss(0, float(cfg.get("noise", 1.0) or 1.0))
         lo, hi = cfg["plausible"]
         return max(lo, min(hi, value))
 
     @staticmethod
-    def _slightly_outside_statistical(cfg: dict, rng: random.Random) -> float:
+    def _slightly_outside_statistical(cfg: ParameterConfig, rng: random.Random) -> float:
         lo, hi = cfg["statistical"]
         width = hi - lo
         if rng.random() < 0.5:
@@ -277,7 +328,7 @@ class RealTimeSensorGenerator:
         return hi + rng.uniform(0.02, 0.10) * width
 
     @staticmethod
-    def _alarm_value(cfg: dict, rng: random.Random, parameter_index: int = 0) -> float:
+    def _alarm_value(cfg: ParameterConfig, rng: random.Random, parameter_index: int = 0) -> float:
         target = cfg.get("alarm_target")
         direction = cfg.get("alarm_direction", "high")
         if target is not None:
@@ -293,6 +344,37 @@ class RealTimeSensorGenerator:
             sign = -1 if rng.random() < 0.5 else 1
             return sign * (max(abs(lo), abs(hi)) + rng.uniform(0.05, 0.20) * width)
         return hi + rng.uniform(0.05, 0.20) * width
+
+    @staticmethod
+    def _validate_case_parameters(parameters: CaseParameters) -> None:
+        if not parameters:
+            raise ValueError("case_parameters must define at least one observation")
+
+        required_fields = ("base", "noise", "statistical", "plausible")
+        valid_alarm_directions = {"high", "low", "high_abs"}
+
+        for name, cfg in parameters.items():
+            missing = [field for field in required_fields if field not in cfg]
+            if missing:
+                raise ValueError(f"{name} is missing required fields: {missing}")
+
+            for field in ("statistical", "plausible"):
+                values = cfg[field]
+                if not isinstance(values, Sequence) or isinstance(values, str) or len(values) != 2:
+                    raise ValueError(f"{name}.{field} must be a two-value sequence: (min, max)")
+                lo, hi = values
+                if not isinstance(lo, (int, float)) or not isinstance(hi, (int, float)):
+                    raise ValueError(f"{name}.{field} values must be numeric")
+                if lo >= hi:
+                    raise ValueError(f"{name}.{field} minimum must be lower than maximum")
+
+            for field in ("base", "noise", "drift", "alarm_target"):
+                if field in cfg and cfg[field] is not None and not isinstance(cfg[field], (int, float)):
+                    raise ValueError(f"{name}.{field} must be numeric")
+
+            direction = cfg.get("alarm_direction", "high")
+            if direction not in valid_alarm_directions:
+                raise ValueError(f"{name}.alarm_direction must be one of {sorted(valid_alarm_directions)}")
 
 
 class RiverLevelGenerator(RealTimeSensorGenerator):
