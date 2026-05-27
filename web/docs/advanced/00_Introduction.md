@@ -19,7 +19,7 @@ Run the notebooks in numerical order. Each notebook assumes the concepts, users,
 
 To execute the notebooks, you need to have the `istsos_utils.py` helper module in the same folder. This module contains functions for common tasks such as creating users, entities, and uploading data.
 
-[Download `istsos_utils.py`](https://raw.githubusercontent.com/istsos/istsos4-workshop/main/notebooks/scripts/istsos_utils.py)
+[Download `istsos_utils.py`](https://raw.githubusercontent.com/istSOS/istsos4-workshop/refs/heads/main/workshop/jupyter/content/notebooks/scripts/istsos_utils.py)
 
 ## Workshop conventions
 
