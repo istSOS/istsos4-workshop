@@ -15,6 +15,11 @@ The workshop follows one continuous path:
 
 Run the notebooks in numerical order. Each notebook assumes the concepts, users, or data created in the previous steps.
 
+# Resource scripts
+
+To execute the notebooks, you need to have the `istsos_utils.py` helper module in the same folder. This module contains functions for common tasks such as creating users, entities, and uploading data.
+
+[Download `istsos_utils.py`](https://raw.githubusercontent.com/istsos/istsos4-workshop/main/notebooks/scripts/istsos_utils.py)
 
 ## Workshop conventions
 
