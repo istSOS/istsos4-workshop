@@ -32,7 +32,7 @@ If you select the **Observed Property** dropdown, you can view the data from all
 
 ### :lucide-play: Create dashboards via Grafana
 
-You can also visualize istSOS4 observations using Grafana (<http://localhost:3000> or <https://istsos.org/grafana>). Grafana allows you to create dashboards, configure panels, apply filters, and compare time series from different datastreams.
+You can also visualize istSOS4 observations using Grafana (<https://istsos.org/grafana>). Grafana allows you to create dashboards, configure panels, apply filters, and compare time series from different datastreams.
 
 Open Grafana and log in with the default credentials:
 
@@ -138,3 +138,227 @@ The dashboard now displays the `INTERNAL_TEMPERATURE_GROUP_010` time series with
 ![Grafana dashboard with temperature time series](../images/grafana/14.png)
 
 You can repeat the same process to add more panels and compare multiple datastreams in the same dashboard.
+
+### :lucide-play: Configure alerts in Grafana
+
+Grafana can also evaluate istSOS4 observations and send a notification when a sensor value matches an alert condition. This is useful, for example, to notify a group when a temperature, humidity, or light measurement goes above or below a selected threshold.
+
+In this example, we configure a Telegram contact point and create an alert rule for the `INTERNAL_LUX_GROUP_007` datastream.
+
+Open **Alerting** from the left navigation menu, then select **Notification configuration**. In the **Contact points** tab, click **New contact point**.
+
+![Grafana notification contact points](../images/grafana/15.png)
+
+Enter a contact point name that identifies the workshop notification channel, for example:
+
+```txt
+ddt_workshop
+```
+
+Select **Telegram** as the integration type. Configure the Telegram integration with:
+
+- **BOT API Token**: the token generated for your Telegram bot, for example `5264204876:AAFRpeO4Ni-wVUBpZXIF758Wyj7D7-lRjsA`
+- **Chat ID**: the target Telegram chat or channel identifier, for example `@istsos`
+
+> Keep the Telegram bot token private. Do not commit it to a public repository or include it in screenshots shared publicly.
+
+To keep Telegram messages short, expand **Optional Telegram settings** and customize the **Message** field. Click **Edit Message**, choose **Enter custom message**, and use the following custom template:
+
+```txt
+{{ range .Alerts.Firing }}
+🚨 Low light alert
+
+Datastream: {{ .Labels.alertname }}
+Value: {{ .Values.B }} lux
+Threshold: {{ index .Annotations "threshold" }} lux
+
+{{ .Annotations.description }}
+{{ if .DashboardURL }}
+Dashboard: {{ .DashboardURL }}
+{{ end }}
+{{ end }}
+```
+
+This template only prints the firing alert message, the datastream name, the reduced value from expression `B`, the threshold stored in the alert annotations, the description, and the dashboard link when it is available. It omits the default Grafana details such as labels, source links, silence links, and panel links.
+
+Leave **Parse Mode** empty, or keep the default value. In **Notification settings**, enable **Disable resolved message** if you do not want Telegram to receive a notification when the alert returns to normal.
+
+![Create a Telegram contact point](../images/grafana/16.png)
+
+Click **Test** to verify that Grafana can send notifications to Telegram. If the configuration is valid, Grafana displays a successful test message.
+
+![Test Telegram contact point](../images/grafana/17.png)
+
+After the test succeeds, close the test dialog and click **Save contact point**.
+
+Next, open the **Notification policies** tab. The default policy defines where alerts are sent when no more specific routing rule matches. Open the **More** menu of the default policy and select **Edit**.
+
+![Edit Grafana notification policy](../images/grafana/18.png)
+
+Set the **Default contact point** to the contact point created before:
+
+```txt
+ddt_workshop
+```
+
+Keep the alerts grouped by:
+
+```txt
+grafana_folder
+alertname
+```
+
+Expand **Timing options** and configure how Grafana groups and repeats notifications. For this workshop, use:
+
+- **Group wait**: `10s`
+- **Group interval**: `1m`
+- **Repeat interval**: `5h`
+
+With this configuration, Grafana waits 10 seconds before sending the first notification for a new alert group, can send updates for the same group after 1 minute, and repeats an already sent notification only after 5 hours if the alert is still firing.
+
+Then click **Update policy**.
+
+![Configure default notification policy](../images/grafana/19.png)
+
+Next, open **Alerting** → **Alert rules**. If no rules have been created yet, Grafana shows an empty alert rules page. Click **New alert rule**.
+
+![Grafana alert rules page](../images/grafana/20.png)
+
+Enter a clear rule name. For example, to create an alert for the light datastream of group 007, use:
+
+```txt
+INTERNAL_LUX_GROUP_007
+```
+
+In **Define query and alert condition**, select the configured istSOS4 data source, for example:
+
+```txt
+supsi-istsos4-datasource
+```
+
+Set the query time range to the interval that should be evaluated by the rule, for example:
+
+```txt
+10m to now
+```
+
+Configure the query to read observations from the target datastream:
+
+- **Entity**: `Observations`
+- **Related entity**: `Datastreams`
+- **Entity field**: `Name`
+- **Operator**: `Equals`
+- **Value**: `INTERNAL_LUX_GROUP_007`
+
+Configure the result options as follows:
+
+- **Time range**: `phenomenonTime`
+- **$orderby**: `phenomenonTime asc`
+- **$select**: leave empty unless you want to restrict the returned fields
+- **$top**: optional limit for the returned observations
+- **$skip**: optional offset for pagination
+
+![Configure the Grafana alert query](../images/grafana/21.png)
+
+The plugin generates a SensorThings API query automatically. For example, the query preview may look like this:
+
+```txt
+/Observations?$filter=Datastream/name eq 'INTERNAL_LUX_GROUP_007' and phenomenonTime ge '${__from:date:iso}' and phenomenonTime le '${__to:date:iso}'&$orderby=phenomenonTime asc
+```
+
+Using `phenomenonTime asc` is important in this example because the alert condition uses the **Last** value of the returned series. With ascending ordering, the last point corresponds to the most recent observation.
+
+Define the alert condition using the last value returned by the query. In this example, the alert fires when the latest light measurement is below the selected threshold:
+
+- **Expression B**: `Reduce`
+    - **Input**: query `A`
+    - **Function**: `Last`
+    - **Mode**: `Strict`
+- **Expression C**: `Threshold`
+    - **Input**: expression `B`
+    - **Condition**: `IS BELOW`
+    - **Threshold**: `20`
+
+Click **Preview alert rule condition** to verify whether the rule would fire with the current data and time range.
+
+![Preview the Grafana alert condition](../images/grafana/22.png)
+
+In **Add folder and labels**, select or create a folder to organize the rule. For this workshop example, use:
+
+```txt
+DDT_WORKSHOP
+```
+
+Labels are optional. They can be useful later to search, silence, group, or route alerts through notification policies.
+
+In **Set evaluation behavior**, create or select an evaluation group. For this example, create a group named:
+
+```txt
+DDT
+```
+
+Set the **Evaluation interval** to:
+
+```txt
+1m
+```
+
+![Create Grafana evaluation group](../images/grafana/23.png)
+
+Configure the remaining evaluation settings as follows:
+
+- **Evaluation group and interval**: `DDT`
+- **Evaluation interval**: `1m`
+- **Pending period**: `0s`
+- **Keep firing for**: `0s`
+
+With a pending period of `0s`, Grafana triggers the alert as soon as the condition is met. This is useful during a workshop or demo because alerts react immediately. In production, you may want to use a longer pending period to avoid notifications caused by short-lived spikes or noisy measurements.
+
+![Configure Grafana evaluation behavior](../images/grafana/24.png)
+
+In **Configure notifications**, select the contact point that should receive the alert:
+
+```txt
+ddt_workshop
+```
+
+Finally, in **Configure notification message**, add a short description. These annotations are used by the custom Telegram message configured in the contact point.
+
+Suggested **Description**:
+
+```txt
+The latest lux observation for INTERNAL_LUX_GROUP_007 is below the configured threshold of 20 lux. Check the sensor and the current light conditions.
+```
+
+To include the dashboard link in the Telegram notification, click **Link dashboard and panel** and select the dashboard panel associated with this datastream. The custom Telegram template prints the dashboard URL through:
+
+```txt
+{{ .DashboardURL }}
+```
+
+To avoid hardcoding the threshold in the contact point message, add a custom annotation with the threshold value:
+
+```txt
+threshold
+20
+```
+
+The custom Telegram template reads this annotation through:
+
+```txt
+{{ index .Annotations "threshold" }}
+```
+
+![Configure Grafana alert notifications and message](../images/grafana/25.png)
+
+When the rule is ready, click **Save rule and exit**.
+
+Grafana will evaluate the istSOS4 observations every minute and send a compact Telegram notification to `ddt_workshop` when the latest value of `INTERNAL_LUX_GROUP_007` goes below `20`. Resolved notifications are not sent if **Disable resolved message** is enabled in the contact point.
+
+After the alert has fired, return to the linked dashboard to inspect the alert in context. The dashboard panel shows the `INTERNAL_LUX_GROUP_007` time series together with alert state markers, making it easier to see when the rule entered or left the firing state.
+
+![Grafana dashboard showing alert state markers](../images/grafana/26.png)
+
+The Telegram notification should now be compact and include only the most relevant alert information: the alert title, datastream name, current value, configured threshold, description, and dashboard link.
+
+![Telegram low light alert notification preview](../images/grafana/27.png)

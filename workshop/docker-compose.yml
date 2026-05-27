@@ -33,6 +33,8 @@ services:
         -c log_duration="on"
     ports:
       - ${POSTGRES_EXTERNAL_PORT}:5432
+    volumes:
+      - v-istsos4-database-data:/var/lib/postgresql/data
     healthcheck:
       test: pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}
       interval: 10s
@@ -142,6 +144,8 @@ services:
       - istsos4-workshop-net
 
 volumes:
+  v-istsos4-database-data:
+    name: v-istsos4-database-data
   v-istsos4-workshop-grafana:
     name: v-istsos4-workshop-grafana
     
