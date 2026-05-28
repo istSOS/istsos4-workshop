@@ -49,6 +49,7 @@ You have been hired by a regional civil protection unit to monitor the Maggia Ri
 | `water_temperature_c` | Water temperature | °C | -5 – 35 | 0 – 28 | 4 – 18 |
 | `turbidity_ntu` | Optical turbidity | NTU | 0 – 1000 | 0 – 600 | 0 – 80 |
 
+See [Notebook River level](https://raw.githubusercontent.com/istSOS/istsos4-workshop/refs/heads/main/workshop/jupyter/content/notebooks/assignment_01_river_level_monitoring.ipynb)
 
 ## Case 2 - Slope stability monitoring
 
@@ -64,6 +65,9 @@ You have been hired by a municipality in Vallemaggia to monitor a potentially un
 | `soil_moisture_pct` | Volumetric soil water content | % | -10 – 120 | 0 – 100 | 15 – 55 |
 | `pore_pressure_kpa` | Pore water pressure | kPa | -20 – 120 | -5 – 80 | 0 – 25 |
 
+See [Slope Stability notebook](https://raw.githubusercontent.com/istSOS/istsos4-workshop/refs/heads/main/workshop/jupyter/content/notebooks/assignment_02_slope_stability_monitoring.ipynb)
+
+
 ## Case 3 - Bridge structural monitoring
 
 You have been hired to monitor the pedestrian suspension bridge Ponte Tibetano Carasc, between Monte Carasso and Sementina. The objective is to identify abnormal vibration and deformation patterns that may occur during strong wind or unusual dynamic loading. The node is fixed near the bridge deck and simulates a structural health monitoring device combining an accelerometer, a deck displacement sensor and a temperature probe.
@@ -78,6 +82,8 @@ You have been hired to monitor the pedestrian suspension bridge Ponte Tibetano C
 | `deck_displacement_mm` | Deck displacement relative to a local reference | mm | -120 – 120 | -80 – 80 | -15 – 15 |
 | `cable_temperature_c` | Cable or deck temperature | °C | -40 – 90 | -25 – 65 | -5 – 35 |
 
+See [Bridge Structural notebook](https://raw.githubusercontent.com/istSOS/istsos4-workshop/refs/heads/main/workshop/jupyter/content/notebooks/assignment_03_bridge_structural_monitoring.ipynb)
+
 ## Case 4 — Urban rainfall monitoring
 
 You have been hired by the city technical office to monitor intense urban rainfall in Lugano, close to the Cassarate catchment and a dense urban drainage area. The objective is to support early warning for pluvial flooding and sewer overload. The node is installed on a public building roof and simulates a rain gauge combined with sensors describing accumulated rainfall and drainage saturation.
@@ -91,3 +97,5 @@ You have been hired by the city technical office to monitor intense urban rainfa
 | `rainfall_intensity_mm_h` | Short-term rainfall intensity | mm/h | 0 – 300 | 0 – 180 | 0 – 35 |
 | `cumulated_rainfall_mm` | Cumulated rainfall since the beginning of the event | mm | 0 – 400 | 0 – 250 | 0 – 45 |
 | `drain_level_pct` | Urban drainage filling level | % | 0 – 150 | 0 – 120 | 0 – 70 |
+
+See [Urban Rainfall notebook](https://raw.githubusercontent.com/istSOS/istsos4-workshop/refs/heads/main/workshop/jupyter/content/notebooks/assignment_04_urban_rainfall_monitoring.ipynb)
