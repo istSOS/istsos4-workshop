@@ -7,7 +7,7 @@ repo_url = "https://github.com/istSOS/istsos4-workshop"
 docs_dir = "docs"
 edit_uri = "edit/main/web/docs"
 copyright = """
-    Copyright (c) 2024 the istSOS4 Workshop Team - <a href="#__consent">Change cookie settings</a><br/>
+    Copyright (c) 2026 the istSOS4 Workshop Team - <a href="#__consent">Change cookie settings</a><br/>
     This website is released under the <a href=\"https://creativecommons.org/licenses/by-sa/4.0\">Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0) license</a>"
 """
 extra_javascript = [
@@ -34,7 +34,7 @@ nav = [
         "concepts/open_science.md",
         "concepts/traveltime_extension.md"
     ]},
-    {"Swagger & API" = [
+    {"GUI Interaction" = [
         "basic/swagger.md",
         "basic/authorization.md",
         "basic/traveltime.md",
@@ -42,7 +42,7 @@ nav = [
         "basic/ui.md",
         "basic/view_data.md"
     ]},
-    {"Python interaction" = [
+    {"Python Interaction" = [
         "advanced/00_Introduction.md",
         "advanced/01_Authorization.md",
         "advanced/02_STA_Entities.md",

@@ -18,18 +18,16 @@ istSOS4 is an open-source implementation of the OGC SensorThings API developed a
 It is built with modern Python web technologies (FastAPI, SQLAlchemy, PostgreSQL/PostGIS) and include a number of features that make it a unique solution for **managing and sharing IoT sensor data in line with the Open Science principles** thanks to its open-source nature, adherence to open standards to support data interoperability and accessibility, version-aware and policy enabled feature to guarantee reproducibility and auditability.
 
 ## Workshop
-This workshop provides an introduction to the OGC SensorThings API and its implementation in istSOS4, an open-source platform for managing and sharing IoT sensor data in line with the Open Science principles. The workshop is designed to guide participants through the basics of IoT, the SensorThings API, and how to use istSOS4 to manage sensor data effectively. Exercises are provided in Jupyter Notebooks to allow for an interactive learning experience.
+`SensorThings API v1.1` `Open Science` `Interoperability` `Data Management` `Data Collection` `Data Quality Control` `Data Analytics` `Data Visualization` `Alerting and Notifications` `Versioning and Reproducibility` `Policy Management` `Authentication and Authorization`
 
-1. installazione di Docker e Docker Compose (solo foss4g)
-2. introduzione al workshop e alle tecnologie utilizzate
-3. introduzione al SensorThings API e alla sua implementazione in istSOS4
-4. esercizi con OpenAPI (login, + filtri su query)
-5. creazione sensori con interfaccia grafica
-6. inserimento osservazioni da file
-7. connessione con sensori per inserimento dati
-8. costruire dashboard con grafana
-9. recupero ed analisi dati (quality flag + AI)
-10. settano allerta su telegram (bot? chat?)
+This workshop is organized in four main sections:
+
+1. **Getting Started**: An introduction to the workshop, including installation instructions and an overview of the tools and technologies used.
+2. **Key Concepts**: A short explanation of the key concepts required to understand the material covered in the workshop, including an introduction to IoT, the SensorThings API, and the principles of Open Science.
+3. **GUI Interaction**: A series of guided exercises based on the use of Swagger interface that let you explore the API and understand how to interact with it to manage sensor data. Additionally, a set of exercises to explore the istSOS4 web interface to register enetities and finally the use of Grafana to create dashboards and visualizations based on the data stored in istSOS4.
+4. **Python Interaction**: A set of practical exercises and assignments to apply the concepts of previously covered sections using Python and Jupyter Notebooks, including data quality control and analytics in smart monitoring systems.
+5. **Data Management**: A collection of concepts on data curation and assignments to independently simulate the entire data lifecycle: from sensing to communication, storage, analysis, visualization, and alerting.
+
 
 ## Licenses
 
