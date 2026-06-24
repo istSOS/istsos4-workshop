@@ -72,9 +72,6 @@ Select **New Thing** and complete the fields as follows:
 
 The `<number>` must match the number of the selected `SENSOR_<number>`.
 
-For example, if you are working with `SENSOR_3`, the Thing name should be:
-
-`GROUP_3`
 
 <div align="center">
   <img src="../images/ui/thing.png" alt="Create a new Thing" style="border: 1px solid #000;" />
@@ -139,7 +136,7 @@ A Datastream connects the **Thing**, **Sensor**, and **Observed Property**. It d
 
 Select **New Datastream** and complete the fields as follows:
 
-- **Name:** `INTERNAL_TEMPERATURE_GROUP_<number>`
+- **Name:** `TEMPERATURE_GROUP_<number>`
 - **Observation Type:** `http://www.opengis.net/def/observationType/OGC-OM/2.0/OM_Measurement`
 - **Description:** `Internal air temperature measured by GROUP_<number>`
 - **Unit of Measurement:**
@@ -148,8 +145,8 @@ Select **New Datastream** and complete the fields as follows:
     - **Name:** `symbol`
     - **Value:** `°C`
 - **Properties:**
-  - **Name:** `samplingFrequency`
-  - **Value:** `PT5M`
+    - **Name:** `samplingFrequency`
+    - **Value:** `PT5M`
 - **Network:** `DDT_network`
 
 <div align="center">
@@ -198,12 +195,12 @@ Before importing the file, edit it and replace the Sensor and Datastream names w
 
 For example, if you are working with `GROUP_010`, make sure that the entities in the file use names consistent with your group identifier, such as:
 
-- `INTERNAL_TEMPERATURE_GROUP_010`
-- `INTERNAL_HUMIDITY_GROUP_010`
-- `INTERNAL_PRESSURE_GROUP_010`
-- `INTERNAL_LUX_GROUP_010`
-- `EXTERNAL_WALL_TEMPERATURE_GROUP_010`
-- `EXTERNAL_WATER_TEMPERATURE_GROUP_010`
+- `TEMPERATURE_GROUP_010`
+- `HUMIDITY_GROUP_010`
+- `PRESSURE_GROUP_010`
+- `LUX_GROUP_010`
+- `WALL_TEMPERATURE_GROUP_010`
+- `WATER_TEMPERATURE_GROUP_010`
 - `SENSOR_BATTERY_GROUP_010`
 
 The same rule applies to the corresponding Sensor names: each Sensor must clearly refer to the same group identifier used by the Datastream.
@@ -231,10 +228,10 @@ After the import is complete, the sensor group is fully described in the system 
 
 ### :lucide-play: Power on the device and look at the data
 
-- get a battery
-- insert the battery paying attention to the polarity
-- click the rest button (see [Sensor node pinout](sensors#the-pinout)) to start the device
-- check for a white blink on the device, which indicates that the device is powered on and has successfully transmitted the observations to the server
-- go to the user interface and check the Datastreams associated with the group you just configured, for example: `INTERNAL_TEMPERATURE_GROUP_010`
-- click on the Datastream to see the list of observations
-- check that new observations are being added to the list in real-time as the device transmits data to the server
+1. Get a battery.
+2. Insert it into the device, making sure that the polarity is correct.
+3. Press the reset button (see [Sensor node pinout](sensors#the-pinout)) to start the device.
+4. Check that the device blinks white. This indicates that it is powered on and has successfully transmitted observations to the server.
+5. Open the user interface and find the Datastreams associated with the group you configured—for example, `TEMPERATURE_GROUP_010`
+6. Select a Datastream to view its observations.
+7. Confirm that new observations appear in real time as the device transmits data to the server.
