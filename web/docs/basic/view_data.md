@@ -101,7 +101,7 @@ Configure the result options as follows:
 Set the panel title to the name of the datastream you want to display. For example:
 
 ```txt
-INTERNAL_TEMPERATURE_GROUP_010
+TEMPERATURE_GROUP_010
 ```
 
 ![Configure observations query and panel title](../images/grafana/10.png)
@@ -111,12 +111,12 @@ To visualize observations from a specific datastream, add an entity filter with 
 - **Related entity**: `Datastreams`
 - **Entity field**: `Name`
 - **Operator**: `Equals`
-- **Value**: the name of the datastream, for example `INTERNAL_TEMPERATURE_GROUP_010`
+- **Value**: the name of the datastream, for example `TEMPERATURE_GROUP_010`
 
 The plugin generates a SensorThings API query automatically. For example, the query preview may look like this:
 
 ```txt
-/Observations?$filter=Datastream/name eq 'INTERNAL_TEMPERATURE_GROUP_010' and phenomenonTime ge '${__from:date:iso}' and phenomenonTime le '${__to:date:iso}'&$orderby=phenomenonTime desc
+/Observations?$filter=Datastream/name eq 'TEMPERATURE_GROUP_010' and phenomenonTime ge '${__from:date:iso}' and phenomenonTime le '${__to:date:iso}'&$orderby=phenomenonTime desc
 ```
 
 The Grafana time range is automatically applied using the `phenomenonTime` property. You can change the time interval from the time picker in the top-right corner of the dashboard.
@@ -133,7 +133,7 @@ When the panel is ready, click **Save dashboard**. Enter a dashboard title, for 
 
 ![Save Grafana dashboard](../images/grafana/13.png)
 
-The dashboard now displays the `INTERNAL_TEMPERATURE_GROUP_010` time series with temperature values expressed in degrees Celsius.
+The dashboard now displays the `TEMPERATURE_GROUP_010` time series with temperature values expressed in degrees Celsius.
 
 ![Grafana dashboard with temperature time series](../images/grafana/14.png)
 

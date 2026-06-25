@@ -105,7 +105,7 @@ You should see the following response:
 ### :lucide-play: Retrieve data with commit message
 To access the data, navigate to the interactive documentation at: <code>/Things</code> and execute a GET request to retrieve the list of Things in the system with the following parameters:
 
-    $filter=name eq 'Lugano Lake'&$expand=commit
+    $filter=name eq 'Lugano Lake'&$expand=Commit
 
 You should see the uopdated `Thing` with the updated properties and the commit message associated with the last update, which should be something like:
 
