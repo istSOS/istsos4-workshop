@@ -68,7 +68,7 @@ A Thing represents the physical or logical object associated with the observatio
 Select **New Thing** and complete the fields as follows:
 
 - **Name:** `GROUP_<number>`
-- **Description:** `Environmental sensor located in the SUPSI building`
+- **Description:** `Environmental sensor located in the UVT building`
 
 The `<number>` must match the number of the selected `SENSOR_<number>`.
 
@@ -83,9 +83,7 @@ After completing the fields, click **Next**.
 
 Next, associate the Thing with a **Location**.
 
-For this tutorial, use the existing Location that represents the room. From the selection list, choose:
-
-`SUPSI`
+For this tutorial, use the existing Location that represents the room. From the selection list, choose: `UVT`
 
 <div align="center">
   <img src="../images/ui/location.png" alt="Select the Location" style="border: 1px solid #000;" />
@@ -102,7 +100,7 @@ The Sensor describes the device or procedure used to produce the observations. I
 Select **New Sensor** and complete the fields as follows:
 
 - **Name:** `GROUP_<number>_INTERNAL_TEMPERATURE_SENSOR`
-- **Encoding Type:** `application/json`
+- **Encoding Type:** `application/vnd.geo+json`
 - **Metadata:** `IT`
 - **Description:** `Internal temperature channel of GROUP_<number>`
 
@@ -116,9 +114,7 @@ After completing the Sensor information, click **Next**.
 
 The **Observed Property** defines what the Sensor measures.
 
-For this tutorial, select the existing Observed Property:
-
-`internal:temperature`
+For this tutorial, select the existing Observed Property: `internal:temperature`
 
 This property is used because the sensor we are configuring measures internal temperature.
 
@@ -129,8 +125,6 @@ This property is used because the sensor we are configuring measures internal te
 After selecting the Observed Property, click **Next**.
 
 ### :lucide-play: Create the Datastream
-
-The next step is to create the **Datastream**.
 
 A Datastream connects the **Thing**, **Sensor**, and **Observed Property**. It describes the stream of observations collected for a specific measured property.
 
@@ -147,7 +141,7 @@ Select **New Datastream** and complete the fields as follows:
 - **Properties:**
     - **Name:** `samplingFrequency`
     - **Value:** `PT5M`
-- **Network:** `DDT_network`
+- **Network:** `workshop`
 
 <div align="center">
   <img src="../images/ui/datastream.png" alt="Create a new Datastream" style="border: 1px solid #000;" />
@@ -162,10 +156,10 @@ In the **Review** section, check the entities that will be created or associated
 Before completing the process, verify that:
 
 - the Thing uses the correct group number;
-- the Location is set to `SUPSI`;
+- the Location is set to `UVT`;
 - the Sensor refers to the internal temperature channel;
 - the Observed Property is set to `internal:temperature`;
-- the Datastream is connected to `DDT_network`.
+- the Datastream is connected to `workshop`.
 
 Then enter a **Commit Message** that clearly describes the operation, for example:
 
@@ -191,7 +185,7 @@ Use the import template file available at the following link:
 
 [Download the import template file](https://geoservice2.ist.supsi.ch/data/GROUP_010.csv)
 
-Before importing the file, edit it and replace the Sensor and Datastream names with the identifiers of your group.
+Before importing the file, edit it and replace the Thing, Sensor and Datastream names with the identifiers of your group.
 
 For example, if you are working with `GROUP_010`, make sure that the entities in the file use names consistent with your group identifier, such as:
 
