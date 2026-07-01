@@ -1,5 +1,5 @@
 ---
-title: Traveltime extension (Pilot)
+title: Traveltime extension
 description: Managing traveltime in istSOS4 SensorThingsAPI implementation
 icon: lucide/database-backup
 ---

@@ -70,7 +70,7 @@ Select **New Thing** and complete the fields as follows:
 - **Name:** `GROUP_<number>`
 - **Description:** `Environmental sensor located in the UVT building`
 
-The `<number>` must match the number of the selected `SENSOR_<number>`.
+**The `<number>` must match the number of the selected `SENSOR_<number>`.**
 
 
 <div align="center">
